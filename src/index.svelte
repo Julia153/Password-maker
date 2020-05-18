@@ -1,3 +1,3 @@
-<h1>Svelte</h1>
+<h1>Password Maker</h1>
 
-<p>Welcome to coding with Svelte!</p>
+<p>Create a secure password!</p>
