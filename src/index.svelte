@@ -1,9 +1,18 @@
 <script>
     let userLength = ''
     let password = ''
+    let userSC = false
+    let userLetters = false
+    let userNumbers = false
     
     function makePassword() {
-         
+         if (userLength > 20) {
+             password = "Please enter a number of charcters that is less than 20"
+         } else if (userLength < 1) {
+             password = "Please enter a number of charcters that is more than 0"
+         } else if (!userLetters && !userNumbers && !userSC ) {
+             password = "Click at least one checkbox"
+         }
     }
 </script>
 <style>
@@ -11,26 +20,30 @@
         padding: 10px;
     }
 </style>
-
+<!--HTML-->
+<section class="section content">
 <h1>Password Maker</h1>
 
 <p>Create a secure password!</p>
 
-<label>
-How many charcters do you want your password?<input type="number" bind:value={userLength}>
-</label>
 <h2>Choose your contents:</h2>
 <label>
-Letters:<input type="checkbox">
+How many charcters do you want your password?<input class="input" type="number" min="1" max="20" bind:value={userLength}>
+</label>
+<br>
+<label>
+Letters:<input id="lettersCheckbox" class="checkbox"type="checkbox" bind:checked={userLetters}>
 </label>
 <lable>
-Numbers:<input type="checkbox">
+Numbers:<input id="numbersCheckbox" class="checkbox" type="checkbox" bind:checked={userNumbers}>
 </lable>
 <label>
-Special Charcters:<input type="checkbox">
+Special Charcters:<input id="SpecialCharctersCheckbox" class="checkbox"type="checkbox" bind:checked={userSC}>
 </label>
-
-<button on:click={makePassword}>Make Password!</button>
-
+<br>
+<button class="button" on:click={makePassword}>Make Password!</button>
+<br>
+<br>
 <p>Here is your password:</p>
 <p>{password}</p>
+</section>
