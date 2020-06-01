@@ -9,6 +9,7 @@
   let userNumbers = false;
   let output = "";
   let password = "";
+  let numOfBox = 0;
 
   function makePassword() {
     output = "";
@@ -30,18 +31,22 @@
   function lengthPasswordCreater() {
     for (let i = 0; i < userLength; i++) {
       if (userLowerLetters) {
+        numOfBox++
         let choiceInNumbersForLowerLetters =
           Math.floor(Math.random() * 26) + 97;
         output += String.fromCharCode(choiceInNumbersForLowerLetters);
         console.log(output);
-      } else if (userUpperletters) {
+      } if (userUpperletters) {
+        numOfBox++
         let choiceInNumbersForUpperLetters =
           Math.floor(Math.random() * 26) + 65;
         output += String.fromCharCode(choiceInNumbersForUpperLetters);
-      } else if (userNumbers) {
+      } if (userNumbers) {
+        numOfBox++
         let choiceInNumbersForNumbers = Math.floor(Math.random() * 10) + 48;
         output += String.fromCharCode(choiceInNumbersForNumbers);
-      } else if (userSC) {
+      } if (userSC) {
+        numOfBox++
         let choiceInNumbersForSC = Math.floor(Math.random() * 4) + 35;
         output += String.fromCharCode(choiceInNumbersForSC);
       }
