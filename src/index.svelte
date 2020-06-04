@@ -1,56 +1,96 @@
 <script>
+//setting all of the numbers i use throughout my code as a varible so you know what they mean and they arent just random numbers
   const userMaxLength = 20;
   const userMinLength = 4;
-
+  const numberOfLettersInAlphabet = 26;
+  const startingNumberForLowerCaseLetters = 97;
+  const numberOfDifferentNumbersIWantToUse = 10;
+  const startingNumberForUpperCaseLetters = 65;
+  const startingNumberForNumbers = 48;
+  const startingNumberForSC = 35;
+  const numberOfSCIwantToUse = 4;
+  //setting all of my varibles
   let userLength = "";
   let userSC = false;
   let userLowerLetters = false;
   let userUpperletters = false;
   let userNumbers = false;
   let output = "";
-  let password = "";
-  let numOfBox = 0;
-
+  let checkboxesArray = [];
+  //my function which connects to my button
   function makePassword() {
+    //resetting the output as empty
     output = "";
-    if (userLength > userMaxLength) {
+    //if the user enters a number higher than 20 ask them toenter a lower number
+    while (userLength > userMaxLength) {
       output = "Please enter a number of charcters that is less than 20";
-    } else if (userLength < userMinLength) {
-      output = "Please enter a number of charcters that is more than 0";
-    } else if (
+      
+      //if the user enters a number smaller than 4 tell them they need to enter a higher number
+    } while (userLength < userMinLength) {
+      output = "Please enter a number of charcters that is more than 4";
+      
+     
+      //if the user chooses no check boxes, tell them to select at least 1
+    } while (
       !userLowerLetters &&
       !userNumbers &&
       !userSC &&
       !userUpperletters
-    ) {
+  ) {
       output = "Click at least one checkbox";
-    }
-    lengthPasswordCreater();
+      
+      
+    } 
+    //call the next function hich is the one which actually creates the password
+    PasswordCreater();
   }
-
-  function lengthPasswordCreater() {
+//function which creates the password
+  function PasswordCreater() {
+    //while the output length is smaller than the length the user choose keep going through this loop
     while (output.length < userLength) {
+      //if the user choose the lowercase letters check box, add that to the arrary
       if (userLowerLetters) {
-        let choiceInNumbersForLowerLetters =
-          Math.floor(Math.random() * 26) + 97;
-        output += String.fromCharCode(choiceInNumbersForLowerLetters);
-        console.log(output);
+        checkboxesArray.push("LowerCaseLetters");
       }
+      //if the user chose the upper case letters checkbox then add that to the arrary
       if (userUpperletters) {
-        let choiceInNumbersForUpperLetters =
-          Math.floor(Math.random() * 26) + 65;
-        output += String.fromCharCode(choiceInNumbersForUpperLetters);
+        checkboxesArray.push("UpperCaseLetters");
       }
+      //if the user chose the numbers checkbox, add that to the arrary
       if (userNumbers) {
-        let choiceInNumbersForNumbers = Math.floor(Math.random() * 10) + 48;
-        output += String.fromCharCode(choiceInNumbersForNumbers);
+        checkboxesArray.push("Numbers");
       }
+      //if the user chose the special charcters check box, add that to the arrary
       if (userSC) {
-        let choiceInNumbersForSC = Math.floor(Math.random() * 4) + 35;
+        checkboxesArray.push("SpecialCharcters");
+      }
+      //choose a random item from the arrary of what ever checkboxes they choose
+      let random =
+        checkboxesArray[Math.floor(Math.random() * checkboxesArray.length)];
+        // if the random generator choose lowercase letters, then add a random lowercase letter to the password
+      if (random === "LowerCaseLetters") {
+        let choiceInNumbersForLowerLetters =
+          Math.floor(Math.random() * numberOfLettersInAlphabet) + startingNumberForLowerCaseLetters;
+        output += String.fromCharCode(choiceInNumbersForLowerLetters);
+        //is the random generator thingy chose the uppercase letter then add a random upper case letter to the password
+      } else if (random === "UpperCaseLetters") {
+        let choiceInNumbersForUpperLetters =
+          Math.floor(Math.random() * numberOfLettersInAlphabet) + startingNumberForUpperCaseLetters;
+        output += String.fromCharCode(choiceInNumbersForUpperLetters);
+        //if the random number generator chose numbers from the arrary, add a random number between 1 and 10 to the password
+      } else if (random === "Numbers") {
+        let choiceInNumbersForNumbers = Math.floor(Math.random() * numberOfDifferentNumbersIWantToUse) + startingNumberForNumbers;
+        output += String.fromCharCode(choiceInNumbersForNumbers);
+        // and lastly if the random number generator chose the special charcters from the array then choose a random special charcter and add it to the password
+      } else if (random === "SpecialCharcters") {
+        let choiceInNumbersForSC = Math.floor(Math.random() * numberOfSCIwantToUse) + startingNumberForSC;
         output += String.fromCharCode(choiceInNumbersForSC);
       }
     }
   }
+
+
+
 </script>
 
 <style>
@@ -65,13 +105,15 @@
 
 <!--HTML-->
 <section class="section content">
+<!--This is a couple of titles and a very short info bit about this page and what you do on it-->
   <h1>Password Maker</h1>
 
   <p>Create a secure password!</p>
 
   <h2>Choose your contents:</h2>
+  <!--the input section where the user can choose how long they want their password to be from 4 to 20-->
   <label>
-    How many charcters do you want your password?
+    How many charcters do you want your password to be?
     <input
       class="input"
       type="number"
@@ -79,6 +121,7 @@
       max="20"
       bind:value={userLength} />
   </label>
+  <!--a checkbox for the user to choose if they want lowercase letters in their password or not-->
   <label>
     Lowercase Letters:
     <input
@@ -87,6 +130,7 @@
       type="checkbox"
       bind:checked={userLowerLetters} />
   </label>
+  <!--another checkbox to see if the user wants to have upper case letters in their code or not-->
   <label>
     Uppercase Letters:
     <input
@@ -95,14 +139,16 @@
       type="checkbox"
       bind:checked={userUpperletters} />
   </label>
-  <lable>
-    Numbers:
+  <!--the third checkbox to see if the user wants to have number in their password or not-->
+  <label>
+    Numbers
     <input
-      id="numbersCheckbox"
+      id="NumbersCheckbox"
       class="checkbox"
       type="checkbox"
       bind:checked={userNumbers} />
-  </lable>
+  </label>
+  <!--The last checkbox to see if the user wants to have scpecial charcter in their code or not-->
   <label>
     Special Charcters:
     <input
@@ -111,8 +157,11 @@
       type="checkbox"
       bind:checked={userSC} />
   </label>
+  <!--This is a space, so my page looks nicer :)-->
   <br />
+  <!--A button to press which runs the function to make the password when the user is ready-->
   <button class="button" on:click={makePassword}>Make Password!</button>
+  <!--Gives the user their password!-->
   <p>Here is your password:</p>
   <p>{output}</p>
 </section>
