@@ -2,13 +2,13 @@
 //setting all of the numbers i use throughout my code as a varible so you know what they mean and they arent just random numbers
   const userMaxLength = 20;
   const userMinLength = 4;
-  const numberOfLettersInAlphabet = 26;
-  const startingNumberForLowerCaseLetters = 97;
-  const numberOfDifferentNumbersIWantToUse = 10;
-  const startingNumberForUpperCaseLetters = 65;
-  const startingNumberForNumbers = 48;
-  const startingNumberForSC = 35;
-  const numberOfSCIwantToUse = 4;
+  const numsInAlphabet = 26;
+  const startNumLCL = 97;
+  const numOfNums = 10;
+  const startNumUCL = 65;
+  const startNumNum = 48;
+  const startNumSC = 35;
+  const NumOfSC = 4;
   //setting all of my varibles
   let userLength = "";
   let userSC = false;
@@ -69,22 +69,22 @@
         checkboxesArray[Math.floor(Math.random() * checkboxesArray.length)];
         // if the random generator choose lowercase letters, then add a random lowercase letter to the password
       if (random === "LowerCaseLetters") {
-        let choiceInNumbersForLowerLetters =
-          Math.floor(Math.random() * numberOfLettersInAlphabet) + startingNumberForLowerCaseLetters;
-        output += String.fromCharCode(choiceInNumbersForLowerLetters);
+        let choiceInNumForLCL =
+          Math.floor(Math.random() * numsInAlphabet) + startNumLCL;
+        output += String.fromCharCode(choiceInNumForLCL);
         //is the random generator thingy chose the uppercase letter then add a random upper case letter to the password
       } else if (random === "UpperCaseLetters") {
-        let choiceInNumbersForUpperLetters =
-          Math.floor(Math.random() * numberOfLettersInAlphabet) + startingNumberForUpperCaseLetters;
-        output += String.fromCharCode(choiceInNumbersForUpperLetters);
+        let choiceInNumForUCL =
+          Math.floor(Math.random() * numsInAlphabet) + startNumUCL;
+        output += String.fromCharCode(choiceInNumForUCL);
         //if the random number generator chose numbers from the arrary, add a random number between 1 and 10 to the password
       } else if (random === "Numbers") {
-        let choiceInNumbersForNumbers = Math.floor(Math.random() * numberOfDifferentNumbersIWantToUse) + startingNumberForNumbers;
-        output += String.fromCharCode(choiceInNumbersForNumbers);
+        let choiceInNumForN = Math.floor(Math.random() * numOfNums) + startNumNum;
+        output += String.fromCharCode(choiceInNumForN);
         // and lastly if the random number generator chose the special charcters from the array then choose a random special charcter and add it to the password
       } else if (random === "SpecialCharcters") {
-        let choiceInNumbersForSC = Math.floor(Math.random() * numberOfSCIwantToUse) + startingNumberForSC;
-        output += String.fromCharCode(choiceInNumbersForSC);
+        let choiceInNumForSC = Math.floor(Math.random() * NumOfSC) + startNumSC;
+        output += String.fromCharCode(choiceInNumForSC);
       }
     }
   }
