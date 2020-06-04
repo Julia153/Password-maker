@@ -1,5 +1,5 @@
 <script>
-//setting all of the numbers i use throughout my code as a varible so you know what they mean and they arent just random numbers
+  //setting all of the numbers i use throughout my code as a varible so you know what they mean and they arent just random numbers
   const userMaxLength = 20;
   const userMinLength = 4;
   const numsInAlphabet = 26;
@@ -24,27 +24,21 @@
     //if the user enters a number higher than 20 ask them toenter a lower number
     while (userLength > userMaxLength) {
       output = "Please enter a number of charcters that is less than 20";
-      
+
       //if the user enters a number smaller than 4 tell them they need to enter a higher number
-    } while (userLength < userMinLength) {
+    }
+    while (userLength < userMinLength) {
       output = "Please enter a number of charcters that is more than 4";
-      
-     
+
       //if the user chooses no check boxes, tell them to select at least 1
-    } while (
-      !userLowerLetters &&
-      !userNumbers &&
-      !userSC &&
-      !userUpperletters
-  ) {
+    }
+    while (!userLowerLetters && !userNumbers && !userSC && !userUpperletters) {
       output = "Click at least one checkbox";
-      
-      
-    } 
+    }
     //call the next function hich is the one which actually creates the password
     PasswordCreater();
   }
-//function which creates the password
+  //function which creates the password
   function PasswordCreater() {
     //while the output length is smaller than the length the user choose keep going through this loop
     while (output.length < userLength) {
@@ -67,7 +61,7 @@
       //choose a random item from the arrary of what ever checkboxes they choose
       let random =
         checkboxesArray[Math.floor(Math.random() * checkboxesArray.length)];
-        // if the random generator choose lowercase letters, then add a random lowercase letter to the password
+      // if the random generator choose lowercase letters, then add a random lowercase letter to the password
       if (random === "LowerCaseLetters") {
         let choiceInNumForLCL =
           Math.floor(Math.random() * numsInAlphabet) + startNumLCL;
@@ -79,7 +73,8 @@
         output += String.fromCharCode(choiceInNumForUCL);
         //if the random number generator chose numbers from the arrary, add a random number between 1 and 10 to the password
       } else if (random === "Numbers") {
-        let choiceInNumForN = Math.floor(Math.random() * numOfNums) + startNumNum;
+        let choiceInNumForN =
+          Math.floor(Math.random() * numOfNums) + startNumNum;
         output += String.fromCharCode(choiceInNumForN);
         // and lastly if the random number generator chose the special charcters from the array then choose a random special charcter and add it to the password
       } else if (random === "SpecialCharcters") {
@@ -88,9 +83,6 @@
       }
     }
   }
-
-
-
 </script>
 
 <style>
@@ -105,7 +97,7 @@
 
 <!--HTML-->
 <section class="section content">
-<!--This is a couple of titles and a very short info bit about this page and what you do on it-->
+  <!--This is a couple of titles and a very short info bit about this page and what you do on it-->
   <h1>Password Maker</h1>
 
   <p>Create a secure password!</p>
