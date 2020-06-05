@@ -2,86 +2,110 @@
   //setting all of the numbers i use throughout my code as a varible so you know what they mean and they arent just random numbers
   const userMaxLength = 20;
   const userMinLength = 4;
-  const numsInAlphabet = 26;
-  const startNumLCL = 97;
-  const numOfNums = 10;
-  const startNumUCL = 65;
-  const startNumNum = 48;
-  const startNumSC = 35;
-  const NumOfSC = 4;
   //setting all of my varibles
-  let userLength = "";
   let userSC = false;
   let userLowerLetters = false;
-  let userUpperletters = false;
+  let userUpperLetters = false;
   let userNumbers = false;
   let output = "";
-  let checkboxesArray = [];
+  let userLength = "";
+
   //my function which connects to my button
-  function makePassword() {
+  function checkData() {
     //resetting the output as empty
     output = "";
     //if the user enters a number higher than 20 ask them toenter a lower number
-    while (userLength > userMaxLength) {
+    if (userLength > userMaxLength) {
       output = "Please enter a number of charcters that is less than 20";
+      return;
 
       //if the user enters a number smaller than 4 tell them they need to enter a higher number
     }
-    while (userLength < userMinLength) {
+    if (userLength < userMinLength) {
       output = "Please enter a number of charcters that is more than 4";
 
       //if the user chooses no check boxes, tell them to select at least 1
-    }
-    while (!userLowerLetters && !userNumbers && !userSC && !userUpperletters) {
+    } else if (
+      !userLowerLetters &&
+      !userNumbers &&
+      !userSC &&
+      !userUpperLetters
+    ) {
       output = "Click at least one checkbox";
+      //if the user doesn't enter a length tell them to choose one
+    } else if (userLength === "") {
+      output = "Please enter a length";
+      //if everything they have entered is okay, make a password
+    } else {
+      //send some varibles to the second function, and then what you get back is the final password and then output it
+      let finalPassword = passwordCreater(
+        userLength,
+        userLowerLetters,
+        userUpperLetters,
+        userNumbers,
+        userSC
+      );
+      output = finalPassword;
     }
-    //call the next function hich is the one which actually creates the password
-    PasswordCreater();
   }
-  //function which creates the password
-  function PasswordCreater() {
+  //function which creates the password, and collect the info that the other function sent
+  function passwordCreater(length, lowerLetters, upperLetters, numbers, SC) {
+    //setting the varibles/constants which are only used in this function
+    const numsInAlphabet = 26;
+    const startNumLCL = 97;
+    const numOfNums = 10;
+    const startNumUCL = 65;
+    const startNumNum = 48;
+    const startNumSC = 35;
+    const NumOfSC = 4;
+    let checkboxesArray = [];
+    let password = "";
+
     //while the output length is smaller than the length the user choose keep going through this loop
-    while (output.length < userLength) {
-      //if the user choose the lowercase letters check box, add that to the arrary
-      if (userLowerLetters) {
-        checkboxesArray.push("LowerCaseLetters");
+    while (password.length < length) {
+      //if the user chose the lowercase letters checkbox
+      if (lowerLetters) {
+        checkboxesArray.push("lowerLetters");
       }
       //if the user chose the upper case letters checkbox then add that to the arrary
-      if (userUpperletters) {
-        checkboxesArray.push("UpperCaseLetters");
+      if (upperLetters) {
+        checkboxesArray.push("upperLetters");
       }
       //if the user chose the numbers checkbox, add that to the arrary
-      if (userNumbers) {
-        checkboxesArray.push("Numbers");
+      if (numbers) {
+        checkboxesArray.push("numbers");
       }
       //if the user chose the special charcters check box, add that to the arrary
-      if (userSC) {
-        checkboxesArray.push("SpecialCharcters");
+      if (SC) {
+        checkboxesArray.push("SC");
       }
-      //choose a random item from the arrary of what ever checkboxes they choose
+
+      //choosing a random item from the arrary of what ever checkboxes they choose
       let random =
         checkboxesArray[Math.floor(Math.random() * checkboxesArray.length)];
-      // if the random generator choose lowercase letters, then add a random lowercase letter to the password
-      if (random === "LowerCaseLetters") {
+
+      if (random === "lowerLetters") {
         let choiceInNumForLCL =
           Math.floor(Math.random() * numsInAlphabet) + startNumLCL;
-        output += String.fromCharCode(choiceInNumForLCL);
+        password += String.fromCharCode(choiceInNumForLCL);
         //is the random generator thingy chose the uppercase letter then add a random upper case letter to the password
-      } else if (random === "UpperCaseLetters") {
+      } else if (random === "upperLetters") {
         let choiceInNumForUCL =
           Math.floor(Math.random() * numsInAlphabet) + startNumUCL;
-        output += String.fromCharCode(choiceInNumForUCL);
+        password += String.fromCharCode(choiceInNumForUCL);
         //if the random number generator chose numbers from the arrary, add a random number between 1 and 10 to the password
-      } else if (random === "Numbers") {
+      } else if (random === "numbers") {
         let choiceInNumForN =
           Math.floor(Math.random() * numOfNums) + startNumNum;
-        output += String.fromCharCode(choiceInNumForN);
+        password += String.fromCharCode(choiceInNumForN);
         // and lastly if the random number generator chose the special charcters from the array then choose a random special charcter and add it to the password
-      } else if (random === "SpecialCharcters") {
+      } else if (random === "SC") {
         let choiceInNumForSC = Math.floor(Math.random() * NumOfSC) + startNumSC;
-        output += String.fromCharCode(choiceInNumForSC);
+        password += String.fromCharCode(choiceInNumForSC);
       }
     }
+    //send the password to the first fuction
+    return password;
   }
 </script>
 
@@ -129,7 +153,7 @@
       id="UpperLettersCheckbox"
       class="checkbox"
       type="checkbox"
-      bind:checked={userUpperletters} />
+      bind:checked={userUpperLetters} />
   </label>
   <!--the third checkbox to see if the user wants to have number in their password or not-->
   <label>
@@ -152,7 +176,7 @@
   <!--This is a space, so my page looks nicer :)-->
   <br />
   <!--A button to press which runs the function to make the password when the user is ready-->
-  <button class="button" on:click={makePassword}>Make Password!</button>
+  <button class="button" on:click={checkData}>Make Password!</button>
   <!--Gives the user their password!-->
   <p>Here is your password:</p>
   <p>{output}</p>
